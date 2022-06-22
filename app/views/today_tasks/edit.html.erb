@@ -1,0 +1,42 @@
+<main>
+  <p id="notice">
+    <%= notice %>
+  </p>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+  		  <h1>Editing Today Task</h1>
+  		  <div id="error_explanation">
+          <% if @today_task.errors.any? %>
+            <h3>
+              <%= @today_task.errors.count %> errors prohibited this obj from being saved:
+            </h3>
+            <ul>
+              <% @today_task.errors.full_messages.each do |message| %>
+                <li>
+                  <%= message %>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
+        </div>
+  		  <div class="form-field">
+          <%= form_with model: @today_task, local:true do |f| %>
+            <div class="form-group">
+              <%= f.label 'book_title', 'Name' %>
+              <%= f.text_field :name, :class => 'form-control book_title' %>
+            </div>
+            <div class="form-group">
+              <%= f.label 'book_opinion', 'Content' %>
+              <%= f.text_area :content, :class => 'form-control book_body' %>
+            </div>
+            <div class="form-group">
+              <input type="submit" name="commit" value="Update TodayTask" class="btn btn-outline-dark" data-disable-with="Update TodayTask">
+            </div>
+          <% end %>
+          
+          <%= link_to "Back", today_tasks_path %>
+        </div>
+    </div>
+  </div>
+</main>

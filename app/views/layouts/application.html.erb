@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Todolists</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <header>
+      <% if user_signed_in? %>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="/today_tasks"><strong>やることリスト</strong></a></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <%= link_to(edit_user_path(current_user.id), class: 'nav-link active') do %>
+                    マイページ編集
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to today_tasks_path, class: 'nav-link' do %>
+                    今日すること
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to month_tasks_path, class: 'nav-link' do %>
+                    月末までにすること
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to(destroy_user_session_path, class: 'nav-link', method: :delete) do %>
+                    ログアウト
+                  <% end %>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      <% else %>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="/"><strong>やることリスト</strong></a></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <%= link_to root_path, class: 'nav-link active' do %>
+                    Topページ
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to home_about_path, class: 'nav-link' do %>
+                    Aboutページ
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to new_user_registration_path, class: 'nav-link' do %>
+                    Sign upページ
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to new_user_session_path, class: 'nav-link' do %>
+                    Log inページ
+                  <% end %>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      <% end %>
+    </header>
+    <body>
+      <% flash.each do |key, value| %>
+        <%= content_tag(:div, value, class: "#{key}") %>
+      <% end %>
+      <%= yield %>
+    </body>
+    <footer>
+      <div class="container mt-5">
+  	    <div class="row">
+    	    <div class="mx-auto">
+    		    <p>やることやってから遊びましょう。</p>
+    	    </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
